@@ -52,6 +52,15 @@ class Chef
         :long => "--branch BRANCH",
         :description => "Default branch to work with",
         :default => "master"
+ 
+      
+      option :sanitize_name,
+        :short => "-n",
+        :long => "--sanitize-name",
+        :boolean => true,
+        :description => "Clean up the name from unnecessary parts (chef,cookbook)"        
+      
+      
 
       attr_reader :github_user
       attr_reader :github_repo
@@ -103,8 +112,11 @@ class Chef
             ui.error("Expected a github user and a repo to download from: jnewland/chef_ipmi")
             exit 1
           end
-          @cookbook_name = @github_repo.gsub(/[_-]?chef(?!-client|-server|_handler)[-_]?/, '').
-                                        gsub(/[_-]?cookbook[-_]?/, '')
+          @cookbook_name = @github_repo
+          if @sanitize_name
+            @cookbook_name = @github_repo.gsub(/[_-]?chef(?!-client|-server|_handler)[-_]?/, '').
+                                          gsub(/[_-]?cookbook[-_]?/, '')
+          end
         end
       end
 

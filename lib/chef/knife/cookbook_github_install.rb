@@ -54,11 +54,11 @@ class Chef
         :default => "master"
  
       
-      option :sanitize_name,
+      option :skip_sanitize_name,
         :short => "-n",
-        :long => "--sanitize-name",
+        :long => "--skip-sanitize-name",
         :boolean => true,
-        :description => "Clean up the name from unnecessary parts (chef,cookbook)"        
+        :description => "Skip cleaning up the name from unnecessary parts (chef,cookbook)"                
       
       
 
@@ -113,7 +113,7 @@ class Chef
             exit 1
           end
           @cookbook_name = @github_repo
-          if @sanitize_name
+          if !config[:skip_sanitize_name]
             @cookbook_name = @github_repo.gsub(/[_-]?chef(?!-client|-server|_handler)[-_]?/, '').
                                           gsub(/[_-]?cookbook[-_]?/, '')
           end

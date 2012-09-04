@@ -1,6 +1,33 @@
 knife-github-cookbooks
 ======================
 
+Preamble
+--------------
+
+This is a slightly improved version of knife-github-cookboolks originally writteb by jnewland (Jesse Newland) https://github.com/websterclay/knife-github-cookbooks
+
+The only new feature here is the possibility to skip the sanitizing of a cookbook names. Initially, the names containing chef, 
+cookbook and so on should be sanitized, e.g. these words should be cut. If one modify a cookbook like `metachef`, it's not a
+good idea to remove the word `chef` form its name. I introduced new parameter `-n (--skip-sanitize-name)` to stop the removal of such reserved words.
+The default behavior sill be unchanged. 
+
+
+How to install this modified version
+-------------------------------------
+```bash    
+    # Install Ruby and Chef
+    apt-get install -f -y -qq --force-yes ruby1.9.1 ruby1.9.1-dev make
+    gem1.9.1 install --no-rdoc --no-ri chef --version 0.10.10
+    gem1.9.1 install --no-rdoc --no-ri knife-github-cookbooks
+    
+    # Install updated version of knife-github-cookbook
+    git clone git://github.com/gbatalski/knife-github-cookbooks.git
+    cd knife-github-cookbooks
+    gem1.9.1 build *.gemspec
+    gem1.9.1 install --no-rdoc --no-ri *.gem
+```
+
+
 Description
 -----------
 
